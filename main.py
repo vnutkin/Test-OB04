@@ -1,4 +1,10 @@
 from abc import ABC, abstractmethod
+class Weapon(ABC):
+    def __init__(self, weapon_typ):
+        self.weapon_typ = weapon_typ
+    @abstractmethod
+    def attac(self,enemy):
+        pass
 class Monster():
     def __init__(self, name):
         self.name = name
@@ -8,12 +14,12 @@ class Monster():
         self.status = 'dead'
         print(f'Монстр {self.name} побежден!')
 class Fighter():
-    def __init__(self, name, weapon):
+    def __init__(self, name, weapon:Weapon):
         self.name = name
         self.status = 'alive'
         self.weapon = weapon
         print(f'Боец {self.name} c {self.weapon.weapon_typ} к бою готов')
-    def change_weapon(self, weapon):
+    def change_weapon(self, weapon:Weapon):
         print(f'Боец {self.name} меняет {self.weapon.weapon_typ} на {weapon.weapon_typ}')
         self.weapon = weapon
 
@@ -23,12 +29,7 @@ class Fighter():
     def attac(self, enemy):
         print(f'Боец {self.name} атакует {enemy.name}')
         self.weapon.attac(enemy)
-class Weapon():
-    def __init__(self, weapon_typ):
-        self.weapon_typ = weapon_typ
-    @abstractmethod
-    def attac(self,enemy):
-        pass
+
 class Sword(Weapon):
     def __init__(self,weapon_typ):
         super().__init__(weapon_typ)
